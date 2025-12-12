@@ -1,6 +1,4 @@
 import streamlit as st
-
-# 正規表達式(檢查網址格式)
 import re
 from translator import translate_text
 from web_scraper import scrape_webpage
@@ -9,7 +7,6 @@ st.set_page_config(
     page_title="Translation App (EN → ZH-TW)", page_icon="🌐", layout="wide"
 )
 
-# URL 格式檢查：只要不以 http:// 或 https:// 開頭就視為錯誤
 URL_PATTERN = re.compile(r"^https?://")
 
 # 左右欄位
@@ -25,9 +22,9 @@ with left_col:
 
     col1, col2 = st.columns([1, 1])
     with col1:
-        clear = st.button("Clear")
+        clear = st.button("Clear", type="secondary", help="Clear all inputs")
     with col2:
-        run = st.button("Execute")
+        run = st.button("Execute", type="primary", help="Click to run the workflow")
 
     if clear:
         st.rerun()
@@ -51,7 +48,7 @@ with right_col:
         # 流程記錄
         with workflow_box:
             with st.expander("Step 2. 這裡顯示執行過程中的工作", expanded=True):
-                st.write("Start 開始執行囉！")
+                st.write("➤ Start 開始執行囉！")
 
                 # Step 2-1: 網頁爬蟲
                 with st.spinner("正在抓取網頁內容..."):
@@ -71,7 +68,7 @@ with right_col:
                         st.error(f"❌ 翻譯失敗：{e}")
                         st.stop()
 
-                st.write("End")
+                st.write("🐳 End 🐳")
 
         # Show Result
 
